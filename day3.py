@@ -1,14 +1,27 @@
 import sys
 
-# from sympy import *
-from sympy.geometry import Point, Segment
+class Point:
+    xCoordinate = 0
+    yCoordinate = 0
+
+    def __init__(self, pointXCoordinate: int, pointYCoordinate: int):
+        self.xCoordinate = pointXCoordinate
+        self.yCoordinate = pointYCoordinate
+
+    def translate(self, xTranslation: int, yTranslation: int):
+        self.xCoordinate = self.xCoordinate + xTranslation
+        self.yCoordinate = self.yCoordinate + yTranslation
+
+    def taxicab_distance(self, otherPoint) -> int :
+        xDistance = abs(otherPoint.xCoordinate - self.xCoordinate)
+        yDistance = abs(otherPoint.yCoordinate - self.yCoordinate)
+        return xDistance + yDistance
 
 origin = Point(0, 0)
 wireLocation1 = Point(0, 0)
 wireLocation2 = Point(0, 0)
 directions1 = []
 directions2 = []
-
 
 def move_one_step(step, startingLocation, distanceCounter):
     wirePoints = {}
