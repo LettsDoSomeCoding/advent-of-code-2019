@@ -8,11 +8,21 @@ class Point:
         self.xCoordinate = pointXCoordinate
         self.yCoordinate = pointYCoordinate
 
-    def translate(self, xTranslation: int, yTranslation: int):
-        self.xCoordinate = self.xCoordinate + xTranslation
-        self.yCoordinate = self.yCoordinate + yTranslation
+    # Overwrite equality operators to compare objects by defined properties
+    def __eq__(self, other):
+        if isinstance(other, self.__class__):
+            return self.xCoordinate == other.xCoordinate and self.yCoordinate == other.yCoordinate
+        return False
 
-    def taxicab_distance(self, otherPoint) -> int :
+    def __ne__(self, other):
+        return self.xCoordinate != other.xCoordinate or self.yCoordinate != other.yCoordinate
+
+    def translate(self, xTranslation: int, yTranslation: int):
+        xCoordinate = self.xCoordinate + xTranslation
+        yCoordinate = self.yCoordinate + yTranslation
+        return Point(xCoordinate, yCoordinate)
+
+    def taxicab_distance(self, otherPoint):
         xDistance = abs(otherPoint.xCoordinate - self.xCoordinate)
         yDistance = abs(otherPoint.yCoordinate - self.yCoordinate)
         return xDistance + yDistance
@@ -29,19 +39,19 @@ def move_one_step(step, startingLocation, distanceCounter):
     if step[0] == "R":
         for i in range(int(step[1:])):
             wirePoints[startingLocation.translate(i + 1, 0)] = distanceCounter + i + 1
-        startingLocation = startingLocation.translate(int(step[1:]), 0)
+        startingLocation.xCoordinate = startingLocation.xCoordinate + int(step[1:])
     elif step[0] == "L":
         for i in range(int(step[1:])):
             wirePoints[startingLocation.translate(-i - 1, 0)] = distanceCounter + i + 1
-        startingLocation = startingLocation.translate(-int(step[1:]), 0)
+        startingLocation.xCoordinate = startingLocation.xCoordinate - int(step[1:])
     elif step[0] == "U":
         for i in range(int(step[1:])):
             wirePoints[startingLocation.translate(0, i + 1)] = distanceCounter + i + 1
-        startingLocation = startingLocation.translate(0, int(step[1:]))
+        startingLocation.yCoordinate = startingLocation.yCoordinate + int(step[1:])
     elif step[0] == "D":
         for i in range(int(step[1:])):
             wirePoints[startingLocation.translate(0, -i - 1)] = distanceCounter + i + 1
-        startingLocation = startingLocation.translate(0, -int(step[1:]))
+        startingLocation.yCoordinate = startingLocation.yCoordinate - int(step[1:])
 
     return wirePoints
 
