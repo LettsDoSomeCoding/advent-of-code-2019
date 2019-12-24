@@ -21,7 +21,7 @@
             "args": ["./day3_input.txt"]
         },
         {
-            "name": "Day 4 part 1",
+            "name": "Day 4",
             "type": "python",
             "request": "launch",
             "program": "${file}",

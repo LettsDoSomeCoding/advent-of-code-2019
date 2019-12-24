@@ -17,6 +17,9 @@ class Point:
     def __ne__(self, other):
         return self.xCoordinate != other.xCoordinate or self.yCoordinate != other.yCoordinate
 
+    def __hash__(self):
+        return hash(self)
+
     def translate(self, xTranslation: int, yTranslation: int):
         xCoordinate = self.xCoordinate + xTranslation
         yCoordinate = self.yCoordinate + yTranslation
